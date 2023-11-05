@@ -61,14 +61,12 @@ def generate_presigned_url(object_key, expiry=300):
     client = boto3.client("s3",region_name="us-east-2",
                           aws_access_key_id=AWS_ACCESS_KEY,
                           aws_secret_access_key=AWS_SECRET_KEY)
-    
-    # client = boto3.client("s3")
-    
-    response = client.generate_presigned_url('get_object',
-                                                Params={'Bucket': "avatar-digital-twin-bucket",'Key': object_key},
-                                                ExpiresIn=expiry)
-    
-    return response
+
+    return client.generate_presigned_url(
+        'get_object',
+        Params={'Bucket': "avatar-digital-twin-bucket", 'Key': object_key},
+        ExpiresIn=expiry,
+    )
 
 
 class ScriptFinder:
